@@ -37,3 +37,94 @@ jobs:
         docker image history ${name}:${version}
         docker system df -v               
         docker image inspect ${name}:${version}
+
+  ubuntu-arm64v8-latest-job:
+    name: "arm64v8 centos docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "arm64v8/centos"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos.kali-tools-forensics"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}
+
+
+  ubuntu-arm64v8-latest-job:
+    name: "arm64v8 centos docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "arm64v8/centos"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos.arm64v8"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}
+
+  ubuntu-ppc64le-latest-job:
+    name: "ppc64le centos docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "ppc64le/centos"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos.ppc64le"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}
