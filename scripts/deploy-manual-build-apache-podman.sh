@@ -36,7 +36,7 @@ echo 'EXPOSE 80' >> Docker
 # Specify the command to run when the container starts
 echo 'ENTRYPOINT /usr/sbin/httpd -DFOREGROUND' >> Docker
 
-stat Docker
+stat Dockerfile
 
 # # Build the image with a descriptive tag
 #  docker build --no-cache --rm  -t centos:httpd . --file Docker
