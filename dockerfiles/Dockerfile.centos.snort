@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM centos:latest
 LABEL org.opencontainers.image.authors="githubfoam"
 
 
