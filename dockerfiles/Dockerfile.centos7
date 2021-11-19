@@ -1,0 +1,9 @@
+FROM centos:centos7
+LABEL org.opencontainers.image.authors="githubfoam"
+
+
+RUN yum update -qy && yum install \
+    gcc \
+    tcpdump -yq
+
+WORKDIR /tmp
