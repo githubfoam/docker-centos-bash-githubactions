@@ -22,7 +22,7 @@ jobs:
         cat /etc/issue
         cat /etc/os-release
         sudo apt-get install -y neofetch && neofetch 
-    - name: "build manual docker"
+    - name: "build manual podman"
       run: sudo make deploy-manual-build-apache-podman  
 
 

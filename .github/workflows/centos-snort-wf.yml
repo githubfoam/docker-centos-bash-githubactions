@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  ubuntu-latest-job:
+  ubuntu-snort-source-latest-job:
     name: "snort source centos docker ubuntu latest"
     runs-on: ubuntu-latest
     env:
@@ -37,7 +37,7 @@ jobs:
         docker system df -v               
         docker image inspect ${name}:${version}    
 
-  ubuntu-latest-job:
+  ubuntu-snort-latest-job:
     name: "snort centos docker ubuntu latest"
     runs-on: ubuntu-latest
     env:

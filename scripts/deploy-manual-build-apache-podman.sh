@@ -6,7 +6,7 @@ set -o xtrace
 # set -eox pipefail #safety for script
 
 echo "========================================================================================="
-mkdir demo-docker && cd demo-docker
+mkdir demo-podman && cd demo-podman
 
 source /etc/os-release
 # . /etc/os-release
@@ -17,30 +17,28 @@ apt-get update -qy && apt-get install podman -qy
 podman  --version
 podman  info
 
-mkdir demo-docker && cd demo-docker
-
-# https://docs.centosproject.org/en-US/iot/build-docker/
+# https://docs.centosproject.org/en-US/iot/build-Dockerfile/
 # Example: Web application
 
 # Create a working directory with some content for a web server
 mkdir demo-httpd && cd demo-httpd && echo 'sample container' > index.html
 
-# Start the Docker with a FROM command to indicate the base image
-echo 'FROM centos:latest' >> Docker
+# Start the Dockerfile with a FROM command to indicate the base image
+echo 'FROM centos:latest' >> Dockerfile
 # update the image and add any application and utilities
-echo 'RUN dnf -y update && dnf -y install httpd git  && dnf clean all' >> Docker.centos.httpd
+echo 'RUN dnf -y update && dnf -y install httpd git  && dnf clean all' >> Dockerfile.centos.httpd
 # Copy to the sample index.html file into the container
-echo 'COPY index.html /var/www/html/index.html' >> Docker
+echo 'COPY index.html /var/www/html/index.html' >> Dockerfile
 # what ports are available to publish
-echo 'EXPOSE 80' >> Docker
+echo 'EXPOSE 80' >> Dockerfile
 # Specify the command to run when the container starts
-echo 'ENTRYPOINT /usr/sbin/httpd -DFOREGROUND' >> Docker
+echo 'ENTRYPOINT /usr/sbin/httpd -DFOREGROUND' >> Dockerfile
 
 stat Dockerfile
 
 # # Build the image with a descriptive tag
-#  docker build --no-cache --rm  -t centos:httpd . --file Docker
-podman build --tag fedora:myhttpd -f ./Dockerfile
+#  Dockerfile build --no-cache --rm  -t centos:httpd . --file Dockerfile
+podman build --tag fedora:myhttpd -f ./Dockerfilefile
 # # Run the container and publish the port
 podman run -p 8080:80 --name myhttpd --rm fedora:myhttpd
 # # View the port information
