@@ -45,7 +45,6 @@ jobs:
   ubuntu-latest-manual-build-apache-podman-job:
     name: "podman manual build apache docker centos ubuntu-latest"
     runs-on: ubuntu-latest
-      dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
