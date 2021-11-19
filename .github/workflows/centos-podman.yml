@@ -1,4 +1,4 @@
-name: "podman fedora  CI workflow"
+name: "podman centos  CI workflow"
 
 
 on:
@@ -9,13 +9,13 @@ on:
 jobs:
 
   ubuntu-latest-manual-build-job:
-    name: "podman fedora ubuntu ubuntu-latest"
+    name: "podman centos ubuntu ubuntu-latest"
     runs-on: ubuntu-latest
     env:
       distribution: "archlinux" #https://hub.docker.com/_/archlinux
       version: "latest"
-      name: "fedora:snort"
-      dockerfilename: "Dockerfile.fedora.snort"
+      name: "centos:snort"
+      dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -31,13 +31,13 @@ jobs:
       run: sudo make deploy-manual-build     
 
   ubuntu-latest-job:
-    name: "docker fedora ubuntu 20.04"
+    name: "docker centos ubuntu 20.04"
     runs-on: ubuntu-latest
     env:
       distribution: "archlinux" #https://hub.docker.com/_/archlinux
       version: "latest"
-      name: "fedora:snort"
-      dockerfilename: "Dockerfile.fedora.snort"
+      name: "centos:snort"
+      dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -64,7 +64,7 @@ jobs:
     #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --syntax-check
     #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --check #dry-run
     #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml
-    - name: "docker build fedora snort"
+    - name: "docker build centos snort"
       run: |
         # destroyed afterwards (use --rm )
         # all subsequent Dockerfile commands generate new images and the cache is not used

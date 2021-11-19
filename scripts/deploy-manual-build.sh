@@ -26,14 +26,14 @@ echo 'ENTRYPOINT /usr/sbin/httpd -DFOREGROUND' >> Dockerfile.centos.httpd
 
 stat Dockerfile.centos.httpd
 
-# Build the image with a descriptive tag
- docker build --no-cache --rm  -t centos:httpd . --file Dockerfile.centos.httpd
-# Run the container and publish the port
-docker run -p 8080:80 --name httpd --rm centos:httpd
-# View the port information
-docker port httpd
-# Access the web page from the host device
-curl localhost:8080
+# # Build the image with a descriptive tag
+#  docker build --no-cache --rm  -t centos:httpd . --file Dockerfile.centos.httpd
+# # Run the container and publish the port
+# docker run -p 8080:80 --name httpd --rm centos:httpd
+# # View the port information
+# docker port httpd
+# # Access the web page from the host device
+# curl localhost:8080
 
 
 echo "========================================================================================="

@@ -11,11 +11,6 @@ jobs:
   ubuntu-latest-manual-build-job:
     name: "manual build docker centos ubuntu-latest"
     runs-on: ubuntu-latest
-    env:
-      distribution: "archlinux" 
-      version: "latest"
-      name: "centos/snort"
-      dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -33,11 +28,6 @@ jobs:
   ubuntu-latest-manual-build-apache-job:
     name: "manual build apache docker centos ubuntu-latest"
     runs-on: ubuntu-latest
-    env:
-      distribution: "archlinux" 
-      version: "latest"
-      name: "centos/snort"
-      dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -55,10 +45,6 @@ jobs:
   ubuntu-latest-manual-build-apache-podman-job:
     name: "podman manual build apache docker centos ubuntu-latest"
     runs-on: ubuntu-latest
-    env:
-      distribution: "archlinux" 
-      version: "latest"
-      name: "centos/snort"
       dockerfilename: "Dockerfile.centos.snort"
     steps:
     - uses: actions/checkout@v2
@@ -75,10 +61,9 @@ jobs:
       run: sudo make deploy-manual-build-apache-podman     
 
   ubuntu-latest-job:
-    name: "centos docker ubuntu latest"
+    name: "snort centos docker ubuntu latest"
     runs-on: ubuntu-latest
     env:
-      distribution: "archlinux" 
       version: "latest"
       name: "centos/snort"
       dockerfilename: "Dockerfile.centos.snort"
@@ -98,7 +83,7 @@ jobs:
       run: |
         # destroyed afterwards (use --rm )
         # all subsequent Dockerfile commands generate new images and the cache is not used
-        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir} /${dockerfilename}  
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename}  
         docker image ls
         docker image history ${name}:${version}
         docker system df -v               
