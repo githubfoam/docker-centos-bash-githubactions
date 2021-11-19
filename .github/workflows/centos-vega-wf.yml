@@ -1,0 +1,127 @@
+name: "fedora vega bash local CI workflow"
+
+
+on:
+  push:
+    branches: [ test ]
+
+
+jobs:
+
+  ubuntu-latest-job:
+    name: "docker fedora ubuntu 20.04"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "archlinux" #https://hub.docker.com/_/archlinux
+      version: "latest"
+      name: "fedora:snort"
+      dockerfilename: "Dockerfile.fedora.snort"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    # - name: "docker pull archlinux"
+    #   run: sudo docker pull ${distribution}:${version}  && sudo docker image ls  
+    # - name: "docker build archlinux base"
+    #   run: |
+    #     # destroyed afterwards (use --rm )
+    #     # all subsequent Dockerfile commands generate new images and the cache is not used
+    #     sudo docker build --no-cache --rm  -t archlinux:base . --file dockerfiles/Dockerfile.archlinux 
+    #     docker image ls
+    #     docker image history archlinux:base
+    #     docker system df -v               
+    #     docker image inspect archlinux:base
+    #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --syntax-check -i ./localhost # no need localhost inventory
+    #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --syntax-check
+    #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --check #dry-run
+    #     # sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml
+    - name: "docker build fedora snort"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name} . --file dockerfiles/${dockerfilename}  
+        docker image ls
+        docker image history ${name}
+        docker system df -v               
+        docker image inspect ${name}     
+    # - name: "run docker ansible local playbook archlinux"
+    #   run: sudo docker run -e ANSIBLE_FORCE_COLOR=1 --privileged --volume="${PWD}":/home/ansible:ro ${name} ansible-playbook -vvv /home/ansible/playbook.yml --syntax-check -i ./localhost         
+    # - name: "deploy nxlog"
+    #   run: sudo make deploy-nxlog-2004 
+
+  # ubuntu-hping3-job:
+  #   name: "docker ubuntu hping3 ubuntu 20.04"
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     distribution: "archlinux" #https://hub.docker.com/_/archlinux
+  #     version: "latest"
+  #     name: "archlinux:ansible"
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: "os fingerprinting"
+  #     run: |
+  #       hostnamectl status
+  #       lsb_release -a
+  #       lsb_release -d
+  #       cat /etc/lsb-release
+  #       cat /etc/issue
+  #       cat /etc/os-release
+  #       sudo apt-get install -y neofetch && neofetch  
+  #   - name: "docker build ubuntu hping3"
+  #     run: |
+  #       # destroyed afterwards (use --rm )
+  #       # all subsequent Dockerfile commands generate new images and the cache is not used
+  #       sudo docker build --no-cache --rm  -t ubuntu:netsec . --file dockerfiles/Dockerfile.ubuntu2104.networksecurity 
+  #       docker image ls
+  #       docker image history ubuntu:netsec
+  #       docker system df -v               
+  #       docker image inspect ubuntu:netsec
+
+  # ubuntu-2004-job:
+  #   name: "nxlog ubuntu  20.04"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: "os fingerprinting"
+  #     run: |
+  #       hostnamectl status
+  #       lsb_release -a
+  #       lsb_release -d
+  #       cat /etc/lsb-release
+  #       cat /etc/issue
+  #       cat /etc/os-release
+  #       sudo apt-get install -y neofetch && neofetch   
+  #   - name: "deploy nxlog"
+  #     run: sudo make deploy-nxlog-2004  
+        
+
+
+  # ubuntu-1804-job:
+  #   name: "nxlog ubuntu-18.04"
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: "os fingerprinting"
+  #     run: |
+  #       hostnamectl status
+  #       lsb_release -a
+  #       lsb_release -d
+  #       cat /etc/lsb-release
+  #       cat /etc/issue
+  #       cat /etc/os-release
+  #       sudo apt-get install -y neofetch && neofetch    
+    # - name: "deploy nxlog"
+      # The following packages have unmet dependencies:
+      # mono-xsp4 : Depends: mono-xsp4-base (= 4.2-2.1) but it is not going to be installed
+      # run: sudo make deploy-nxlog 
+
+
+
+

@@ -1,0 +1,15 @@
+FROM fedora:latest
+LABEL org.opencontainers.image.authors="githubfoam"
+
+
+
+#https://www.snort.org/
+RUN dnf update -y && \
+    yum install https://www.snort.org/downloads/snort/ && \
+    yum install https://www.snort.org/downloads/snort/snort-2.9.18.1-1.f34.x86_64.rpm
+
+#community rules
+RUN wget https://www.snort.org/downloads/community/community-rules.tar.gz -O community-rules.tar.gz && \
+    tar -xvzf community-rules.tar.gz -C /etc/snort/rules
+
+WORKDIR /tmp

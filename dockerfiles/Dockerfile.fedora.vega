@@ -1,0 +1,18 @@
+FROM fedora:latest
+LABEL org.opencontainers.image.authors="githubfoam"
+
+
+WORKDIR /tmp
+
+#GUI
+#https://github.com/zaproxy/zaproxy
+#https://subgraph.com/vega/download.html
+
+# https://github.com/wapiti-scanner/wapiti
+
+#online vulnerable web sites
+#https://github.com/OWASP/OWASP-VWAD/blob/master/src/data/online.json
+RUN dnf update -y && \
+    yum install webkitgtk 
+
+
