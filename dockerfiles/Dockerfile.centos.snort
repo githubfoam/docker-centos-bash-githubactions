@@ -12,13 +12,13 @@ RUN yum update -qy && yum install \
     libdnet \
     tcpdump -yq
 
-RUN yum update -qy && yum install \
-    https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    libnghttp2 -yq
+# RUN yum update -qy && yum install \
+#     https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+#     libnghttp2 -yq
 
-RUN yum update -qy && yum install -qy \
-    https://www.snort.org/downloads/snort/daq-2.0.6-1.centos7.x86_64.rpm \
-    https://www.snort.org/downloads/snort/snort-2.9.12-1.centos7.x86_64.rpm 
+# RUN yum update -qy && yum install -qy \
+#     https://www.snort.org/downloads/snort/daq-2.0.6-1.centos7.x86_64.rpm \
+#     https://www.snort.org/downloads/snort/snort-2.9.12-1.centos7.x86_64.rpm 
 
 #https://www.snort.org/
 # RUN yum update -y && \

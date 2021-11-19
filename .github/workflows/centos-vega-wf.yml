@@ -32,7 +32,7 @@ jobs:
       run: |
         # destroyed afterwards (use --rm )
         # all subsequent Dockerfile commands generate new images and the cache is not used
-        sudo docker build --no-cache --rm  -t ${name}:${version}  . --file ${dockerfiledir} /${dockerfilename}  
+        sudo docker build --no-cache --rm  -t ${name}:${version}  . --file ${dockerfiledir}/${dockerfilename}  
         docker image ls
         docker image history ${name}:${version}
         docker system df -v               

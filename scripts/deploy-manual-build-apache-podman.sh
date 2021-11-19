@@ -38,7 +38,7 @@ stat Dockerfile
 
 # # Build the image with a descriptive tag
 #  Dockerfile build --no-cache --rm  -t centos:httpd . --file Dockerfile
-podman build --tag fedora:myhttpd -f ./Dockerfilefile
+podman build --tag fedora:myhttpd -f ./Dockerfile
 # # Run the container and publish the port
 podman run -p 8080:80 --name myhttpd --rm fedora:myhttpd
 # # View the port information

@@ -1,15 +1,16 @@
 FROM centos:latest
 LABEL org.opencontainers.image.authors="githubfoam"
 
-
+# Error: Unable to find a match: libpcap-devel libdnet-devel 
+# libnghttp2-devel luajit-devel
 RUN yum update -qy && yum install -qy \
     zlib-devel \
-    libpcap-devel \
+    # libpcap-devel \
     pcre-devel \
-    libdnet-devel \
-    openssl-devel \
-    libnghttp2-devel \
-    luajit-devel
+    # libdnet-devel \
+    openssl-devel
+    # libnghttp2-devel \
+    # luajit-devel
 
 # DAQ source package 
 RUN mkdir ~/snort_src && cd ~/snort_src && \
