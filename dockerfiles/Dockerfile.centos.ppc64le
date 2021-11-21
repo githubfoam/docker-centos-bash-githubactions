@@ -1,4 +1,5 @@
-FROM centos:centos8
+# https://hub.docker.com/r/ppc64le/centos/
+FROM ppc64le/centos:latest
 LABEL org.opencontainers.image.authors="githubfoam"
 
 
