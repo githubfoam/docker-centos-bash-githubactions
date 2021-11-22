@@ -8,6 +8,7 @@ RUN yum update -qy && yum install -qy \
     # libpcap-devel \
     pcre-devel \
     # libdnet-devel \
+    wget \
     openssl-devel
     # libnghttp2-devel \
     # luajit-devel

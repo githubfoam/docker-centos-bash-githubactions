@@ -12,7 +12,7 @@ WORKDIR /tmp
 
 #online vulnerable web sites
 #https://github.com/OWASP/OWASP-VWAD/blob/master/src/data/online.json
-RUN yum update -qy && \
-    yum install webkitgtk -qy
+# RUN yum update -qy && \
+#     yum install webkitgtk -qy
 
 

@@ -25,5 +25,31 @@ jobs:
     - name: "build manual podman"
       run: sudo make deploy-manual-build-apache-podman  
 
+  ubuntu-latest-podman-job:
+    name: "podman manual build apache docker centos ubuntu-latest"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch 
+    - name: "run podman"
+      run: |
+        podman run -dt -p 8080:80/tcp docker.io/library/httpd  
+        podman ps
+        # Since, the container is running in rootless mode, 
+        # no IP Address is assigned to the container.
+        podman inspect -l | grep IPAddress
+            "IPAddress": "",
+        podman logs -l
+        podman top -l
+        curl http://localhost:8080      
+
 
 
