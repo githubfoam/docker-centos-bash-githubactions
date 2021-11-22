@@ -13,31 +13,31 @@ RUN yum update -qy && yum install -qy \
     # libnghttp2-devel \
     # luajit-devel
 
-# DAQ source package 
-RUN mkdir ~/snort_src && cd ~/snort_src && \
-    wget https://www.snort.org/downloads/snort/daq-2.0.6.tar.gz && \ 
-    tar -xvzf daq-2.0.6.tar.gz && cd daq-* && \
-    ./configure && make && make install
+# # DAQ source package 
+# RUN mkdir ~/snort_src && cd ~/snort_src && \
+#     wget https://www.snort.org/downloads/snort/daq-2.0.6.tar.gz && \ 
+#     tar -xvzf daq-2.0.6.tar.gz && cd daq-* && \
+#     ./configure && make && make install
 
-#Snort source code
-RUN cd ~/snort_src && \
-    wget https://www.snort.org/downloads/snort/snort-2.9.12.tar.gz && \ 
-    tar -xvzf snort-2.9.12.tar.gz && cd snort-* && \
-    ./configure --enable-sourcefire && make && make install
+# #Snort source code
+# RUN cd ~/snort_src && \
+#     wget https://www.snort.org/downloads/snort/snort-2.9.12.tar.gz && \ 
+#     tar -xvzf snort-2.9.12.tar.gz && cd snort-* && \
+#     ./configure --enable-sourcefire && make && make install
 
-# NIDS mode
-# /usr/local/bin/snort
-RUN ldconfig && \
-    ln -s /usr/local/bin/snort /usr/sbin/snort && \
-    groupadd snort && \
-    useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort && \
-    mkdir -p /etc/snort/rules && \
-    mkdir /var/log/snort && \
-    mkdir /usr/local/lib/snort_dynamicrules && \
-    chmod -R 5775 /etc/snort && \
-    chmod -R 5775 /var/log/snort && \
-    chmod -R 5775 /etc/snort && \
-    chmod -R 5775 /var/log/snort && \    
+# # NIDS mode
+# # /usr/local/bin/snort
+# RUN ldconfig && \
+#     ln -s /usr/local/bin/snort /usr/sbin/snort && \
+#     groupadd snort && \
+#     useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort && \
+#     mkdir -p /etc/snort/rules && \
+#     mkdir /var/log/snort && \
+#     mkdir /usr/local/lib/snort_dynamicrules && \
+#     chmod -R 5775 /etc/snort && \
+#     chmod -R 5775 /var/log/snort && \
+#     chmod -R 5775 /etc/snort && \
+#     chmod -R 5775 /var/log/snort && \    
 
 # #https://www.snort.org/
 # #source build
