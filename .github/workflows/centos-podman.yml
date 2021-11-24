@@ -25,7 +25,7 @@ jobs:
     - name: "build manual podman"
       run: sudo make deploy-manual-build-apache-podman  
 
-  ubuntu-latest-podman- name: "run podman"
+  ubuntu-latest-podman: 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
