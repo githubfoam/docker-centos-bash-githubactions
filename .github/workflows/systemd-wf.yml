@@ -101,5 +101,5 @@ jobs:
         # docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
         # docker run -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
         docker run -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
-        docker image ls
-        docker container ls     
+        # docker image ls
+        # docker container ls     
