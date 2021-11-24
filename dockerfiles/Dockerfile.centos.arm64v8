@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/arm64v8/centos/
-FROM arm64v8/centos:latest
+FROM arm64v8/centos
 LABEL org.opencontainers.image.authors="githubfoam"
 
 

@@ -1,0 +1,106 @@
+name: "systemd bash local CI workflow"
+
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+      - cron:  '0 0 1 * *' ##execution of a task in the first minute of the month 
+
+jobs:
+
+  ubuntu-latest-centos8-job:
+    name: "centos8 docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "centos8/systemd"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos8.systemd"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}
+
+  ubuntu-latest-centos7-job:
+    name: "centos7 docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "centos7/systemd"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos7.systemd"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}
+
+  ubuntu-latest-centos7-httpd-job:
+    name: "httpd centos7 docker ubuntu latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "httpd"
+      name: "centos7/systemd"
+      dockerfiledir: "dockerfiles"
+      dockerfilename: "Dockerfile.centos7.systemd.httpd"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "docker build centos"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}  
+        docker image ls
+        # docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 local/c7-systemd-httpd
+        # docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
+        # docker run -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
+        # docker run -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 ${name}:${version} 
+        # docker image ls
+        # docker container ls     
