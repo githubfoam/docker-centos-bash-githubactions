@@ -6,9 +6,12 @@ RUN yum update -qy && yum install \
     gcc \
     tcpdump -yq
 
-# Create user and set ownership and permissions as required
-RUN mkdir myapp-data && adduser -D myuser && chown -R myuser /myapp-data
+RUN mkdir /home/vagrant && \
+    # create a user ‘builder‘ with home directory ‘/home/vagrant‘, 
+    # default shell /bin/bash and adds extra information about user
+    useradd -m -d /home/vagrant -s /bin/bash -c "builder" -U vagrant  && \
+    chown -R vagrant /home/vagrant
 
-USER myuser
+USER vagrant
 
 WORKDIR /tmp
