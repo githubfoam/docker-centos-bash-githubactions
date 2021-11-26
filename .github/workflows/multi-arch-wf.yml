@@ -1,4 +1,4 @@
-name: "centos bash local CI workflow"
+name: "arm64v8 ppc64le CI workflow"
 
 
 on:
@@ -8,15 +8,15 @@ on:
 
 jobs:
 
-  ubuntu-centos8-latest-job:
-    name: "centos8 docker ubuntu latest"
+  ubuntu-arm64v8-latest-job:
+    name: "arm64v8 centos docker ubuntu latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
-      name: "centos/centos8"
+      name: "arm64v8/centos"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.centos8"
+      dockerfilename: "Dockerfile.centos.arm64v8"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -38,15 +38,15 @@ jobs:
         docker system df -v               
         docker image inspect ${name}:${version}
 
-  ubuntu-centos7-latest-job:
-    name: "centos7 docker ubuntu latest"
+  ubuntu-ppc64le-latest-job:
+    name: "ppc64le centos docker ubuntu latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
-      name: "centos/centos7"
+      name: "ppc64le/centos"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.centos7"
+      dockerfilename: "Dockerfile.centos.ppc64le"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
