@@ -4,7 +4,11 @@ LABEL org.opencontainers.image.authors="githubfoam"
 
 RUN yum update -qy && yum install \
     epel-release \
-    stress \
+   # workload generator tool 
+    # measure of CPU, memory, I/O and disk stress
+    # stress \
+    # an updated version of the stress workload generator tool 
+    stress-ng \
     tcpdump -yq
 
 RUN uptime && \
