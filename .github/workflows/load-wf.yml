@@ -39,14 +39,14 @@ jobs:
         docker image inspect ${name}:${version}
 
   ubuntu-centos8-latest-load-bash-job:
-    name: "centos8 docker ubuntu latest"
+    name: "bash centos8 docker ubuntu latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "load"
       name: "centos/centos8"
       dockerfiledir: "dockerfiles"
-      dockerfilename: "Dockerfile.centos8.load"
+      dockerfilename: "Dockerfile.centos8.load.bash"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
