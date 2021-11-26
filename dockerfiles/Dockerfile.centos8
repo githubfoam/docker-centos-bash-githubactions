@@ -6,4 +6,9 @@ RUN yum update -qy && yum install \
     gcc \
     tcpdump -yq
 
+# Create user and set ownership and permissions as required
+RUN mkdir myapp-data && adduser -D myuser && chown -R myuser /myapp-data
+
+USER myuser
+
 WORKDIR /tmp

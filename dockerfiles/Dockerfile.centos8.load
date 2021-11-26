@@ -1,0 +1,60 @@
+FROM centos:centos8
+LABEL org.opencontainers.image.authors="githubfoam"
+
+
+RUN yum update -qy && yum install \
+    gcc \
+    tcpdump -yq
+
+RUN uptime && \
+    #  spawn 6 workers spinning on sqrt() with a timeout of 20 seconds
+    stress --cpu  6 --timeout 15 && \
+    uptime
+
+RUN uptime && \
+    #  spawn one worker of malloc() and free() functions with a timeout of 45 seconds
+    stress --vm 1 --timeout 45s && \
+    uptime
+
+RUN uptime && \
+    #  spawn 4 workers spinning on sqrt(), 2 workers spawning on sync(), 
+    # 2 workers on malloc()/free()  with a timeout of 35 seconds
+    # allocate a memory of 256MB per vm worker
+    stress --cpu 4 --io 3 --vm 2 --vm-bytes 256M --timeout 35s && \
+    uptime
+
+RUN uptime && \
+    #run 8 CPU stressors with a timeout of 60 seconds and a summary
+    stress-ng --cpu 8 --timeout 60 --metrics-brief && \
+    uptime
+
+RUN uptime && \
+    #run 4 FFT CPU stressors with a timeout of 1 minutes
+    stress-ng --cpu 4 --cpu-method fft --timeout 1m && \
+    uptime
+
+
+RUN uptime && \
+    #run 5 hdd stressors and stop after 100000 bogo operations
+    stress-ng --hdd 5 --hdd-ops 100000 && \
+    uptime
+
+RUN uptime && \
+    #run 8 CPU stressors, 4 I/O stressors and 1 virtual memory 
+    # stressor using 1GB of virtual memory for one minute
+    stress-ng --cpu 4 --io 4 --vm 1 --vm-bytes 1G \
+     --timeout 60s --metrics-brief && \
+    uptime
+
+RUN uptime && \
+    #run 8 CPU stressors, 4 I/O stressors and 1 virtual memory 
+    # stressor using 1GB of virtual memory for one minute
+    stress -c 2 -i 1 -m 1 --vm-bytes 128M -t 10s && \
+    uptime
+    
+# Create user and set ownership and permissions as required
+RUN mkdir myapp-data && adduser -D myuser && chown -R myuser /myapp-data
+
+USER myuser
+
+WORKDIR /tmp
