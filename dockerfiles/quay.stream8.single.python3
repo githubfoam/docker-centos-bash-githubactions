@@ -1,0 +1,24 @@
+#https://quay.io/repository/centos/centos?tag=stream8&tab=tags
+FROM quay.io/centos/centos:stream8
+
+LABEL org.opencontainers.image.authors="githubfoam"
+
+# verify centos stream9 
+RUN echo "================os-release=======================" && \
+    echo "=================================================" && \
+    cat /etc/os-release && \
+    echo "=================================================" && \
+    echo "================os-release======================="
+
+RUN dnf clean all && \
+    dnf autoremove -yq && \
+    rm -rf /var/cache/*/*
+
+RUN yum update -yq && \
+    yum install python3 python3-pip -yq && \
+    python3 --version && pip3 -V && pip --version && pip -V
+
+RUN pip install scrapy
+
+CMD ["/bin/bash"]
+
