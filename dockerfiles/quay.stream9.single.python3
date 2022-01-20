@@ -30,7 +30,8 @@ RUN yum update -yq && \
     source ~venvpy3/bin/activate && \
     python3 --version && \
     pip install scrapy && \
-    scrapy runspider scraper.py
+    ls -lai && ls -lai ../
+    #scrapy runspider scraper.py
 
 
 CMD ["/bin/bash"]

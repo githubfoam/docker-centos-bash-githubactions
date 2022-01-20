@@ -10,8 +10,9 @@ RUN echo "================os-release=======================" && \
     echo "=================================================" && \
     echo "================os-release======================="
 
-RUN dnf clean all && \
-    dnf autoremove -yq && \
+RUN yum update -yq && \
+    yum clean all && \
+    yum autoremove -yq && \
     rm -rf /var/cache/*/*
 
 RUN yum update -yq && \
