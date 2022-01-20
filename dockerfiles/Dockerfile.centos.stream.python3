@@ -27,5 +27,9 @@ RUN yum update -yq && \
     yum install python3 -yq && \
     python3 --version
 
+FROM python-base AS python3-scrappy
+
+RUN pip install scrapy
+
 CMD ["/bin/bash"]
 

@@ -35,7 +35,7 @@ jobs:
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.stream"
+      dockerfilename: "Dockerfile.centos.stream.single"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -65,7 +65,7 @@ jobs:
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.multi"
+      dockerfilename: "Dockerfile.centos.stream.multi"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -95,7 +95,7 @@ jobs:
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.python3"
+      dockerfilename: "Dockerfile.centos.stream.python3"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
