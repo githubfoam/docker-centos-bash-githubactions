@@ -17,11 +17,15 @@ RUN dnf clean all && \
 RUN yum update -yq && \
     yum install python3 python3-pip -yq && \
     python3 --version && \
-    pip3 -V
-    #pip --version && \
+    pip3 -V && \
+    pip --version
     #pip -V
 
-RUN pip install scrapy
+RUN pip3 install virtualenv && \
+    virtualenv -p $(which python3) ~venvpy3 && \
+    source ~venvpy3/bin/activate && \
+    python3 --version && \
+    pip install scrapy
 
 CMD ["/bin/bash"]
 
