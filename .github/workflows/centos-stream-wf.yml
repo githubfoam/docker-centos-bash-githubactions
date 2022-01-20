@@ -36,7 +36,6 @@ jobs:
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
       dockerfilename: "Dockerfile.centos.stream"
-      version: "latest"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
