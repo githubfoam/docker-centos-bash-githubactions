@@ -9,7 +9,10 @@ RUN cat /etc/os-release && \
     dnf install centos-release-stream -yq && \
     dnf swap centos-{linux,stream}-repos -yq && \
     dnf distro-sync -yq && \
-    dnf clean all
+    dnf clean all && \
+    dnf autoremove -yq && \
+    rm -rf /var/cache/*/*
+    
 
 FROM centos-convert AS stream-base
 
