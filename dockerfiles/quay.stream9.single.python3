@@ -22,6 +22,9 @@ RUN yum update -yq && \
     pip --version
     #pip -V
 
+#copy python file
+COPY scraper.py /
+
 # create python3 virtual environment
 RUN yum update -yq && \
     yum install which -yq && \
