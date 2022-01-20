@@ -9,5 +9,8 @@ RUN dnf -y install centos-release-stream && \
     dnf -y distro-sync && \
     dnf clean all
 
+RUN cat /etc/system-release && \
+    cat /etc/os-release
+
 CMD ["/bin/bash"]
 
