@@ -20,7 +20,12 @@ FROM centos-convert AS stream-base
 
 # verify centos stream 
 RUN cat /etc/os-release
-    
+
+FROM stream-base AS python3-base
+
+RUN yum update -yq && \
+    yum install python3 -yq && \
+    python3 --version
 
 CMD ["/bin/bash"]
 
