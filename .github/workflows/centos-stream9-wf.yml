@@ -55,7 +55,50 @@ jobs:
         docker image ls
         docker image history ${name}:${version}
         docker system df -v               
-        docker image inspect ${name}:${version}        
+        docker image inspect ${name}:${version}  
+
+  ubuntu-latest-centos-stream9-single-systemd-quay-job:
+    name: "quay systemd centos-stream9 docker image ubuntu-latest"
+    runs-on: ubuntu-latest
+    env:
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "centos/stream9"
+      dockerfiledir: "dockerfiles"  
+      dockerfilename: "quay.stream9.single.systemd"
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch 
+    - name: "docker build centos stream"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}    
+    - name: "run centos stream9"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        docker run --name test-container -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro ${name}:${version}
+    - name: "Verify systemctl in the built image"
+      run: |
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
+        #docker run --name test-container -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro ${name}:${version}                  
+        docker exec --tty test-container env TERM=xterm systemctl --version
 
   ubuntu-latest-centos-stream9-single-quay-python3-job:
     name: "quay python3 centos-stream9 docker image ubuntu-latest"

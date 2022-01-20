@@ -23,7 +23,7 @@ RUN yum update -yq && \
     #pip -V
 
 #copy python file
-COPY scraper.py /
+COPY dockerfiles/scraper.py /
 
 # create python3 virtual environment
 RUN yum update -yq && \

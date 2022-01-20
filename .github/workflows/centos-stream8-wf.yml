@@ -89,14 +89,14 @@ jobs:
   #       docker image inspect ${name}:${version}  
 
   ubuntu-latest-centos-stream8-python3-job:
-    name: "python3 centos-stream8 docker image ubuntu-latest"
+    name: "python3 multi centos-stream8 docker image ubuntu-latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
       name: "centos/stream8"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "centos.stream8.python3"
+      dockerfilename: "centos.stream8.multi.python3"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
