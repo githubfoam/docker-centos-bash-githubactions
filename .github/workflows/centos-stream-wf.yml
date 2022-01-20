@@ -31,10 +31,12 @@ jobs:
     name: "centos-stream docker image ubuntu-latest"
     runs-on: ubuntu-latest
     env:
-      dockerfiledir: "dockerfiles"
+      distribution: "centos" #https://hub.docker.com/_/centos
+      version: "latest"
+      name: "centos/stream"
+      dockerfiledir: "dockerfiles"  
       dockerfilename: "Dockerfile.centos.stream"
       version: "latest"
-      name: "centos:stream"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -46,13 +48,13 @@ jobs:
         cat /etc/issue
         cat /etc/os-release
         sudo apt-get install -y neofetch && neofetch 
-    - name: "docker build centos"
+    - name: "docker build centos stream"
       run: |
         # destroyed afterwards (use --rm )
         # all subsequent Dockerfile commands generate new images and the cache is not used
-        sudo docker build --no-cache --rm  -t ${name}/${version} . --file ${dockerfiledir}/${dockerfilename} 
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename} 
         docker image ls
-        docker image history ${name}/${version}
+        docker image history ${name}:${version}
         docker system df -v               
-        docker image inspect ${name}/${version}         
+        docker image inspect ${name}:${version}        
 
