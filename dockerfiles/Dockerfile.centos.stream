@@ -1,0 +1,13 @@
+# https://hub.docker.com/r/arm64v8/centos/
+FROM centos:centos8
+
+LABEL org.opencontainers.image.authors="githubfoam"
+
+
+RUN dnf -y install centos-release-stream && \
+    dnf -y swap centos-{linux,stream}-repos && \
+    dnf -y distro-sync && \
+    dnf clean all
+
+CMD ["/bin/bash"]
+
