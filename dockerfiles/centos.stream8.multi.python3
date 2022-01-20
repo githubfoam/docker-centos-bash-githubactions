@@ -36,12 +36,12 @@ RUN yum update -yq && \
     yum install python3 python3-pip -yq && \
     python3 --version && \
     pip3 -V && \
-    pip --version
+    pip --version && \
+    pip install scrapy
     #pip -V
 
-FROM python3-base AS python3-scrappy
-
-RUN pip install scrapy
+#FROM python3-base AS python3-scrappy
+#RUN pip install scrapy
 
 CMD ["/bin/bash"]
 
