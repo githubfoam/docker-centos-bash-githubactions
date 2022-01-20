@@ -16,7 +16,10 @@ RUN dnf clean all && \
 
 RUN yum update -yq && \
     yum install python3 python3-pip -yq && \
-    python3 --version && pip3 -V && pip --version && pip -V
+    python3 --version && \
+    pip3 -V
+    #pip --version && \
+    #pip -V
 
 RUN pip install scrapy
 
