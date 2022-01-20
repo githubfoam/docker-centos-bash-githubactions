@@ -1,18 +1,21 @@
-# https://hub.docker.com/r/arm64v8/centos/
+# Converting from CentOS Linux 8 to CentOS Stream 8
+# https://www.centos.org/centos-stream/
 FROM centos:centos8 AS centos-convert
 
 LABEL org.opencontainers.image.authors="githubfoam"
 
-
-RUN dnf -y install centos-release-stream && \
-    dnf -y swap centos-{linux,stream}-repos && \
-    dnf -y distro-sync && \
+# verify centos 8 
+RUN cat /etc/os-release && \ 
+    dnf install centos-release-stream -yq && \
+    dnf swap centos-{linux,stream}-repos -yq && \
+    dnf distro-sync -yq && \
     dnf clean all
 
 FROM centos-convert AS stream-base
 
-RUN cat /etc/system-release && \
-    cat /etc/os-release
+# verify centos stream 
+RUN cat cat /etc/os-release
+    
 
 CMD ["/bin/bash"]
 
