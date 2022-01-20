@@ -5,7 +5,11 @@ FROM centos:centos8 AS centos-convert
 LABEL org.opencontainers.image.authors="githubfoam"
 
 # verify centos 8 
-RUN cat /etc/os-release
+RUN echo "================os-release=======================" && \
+    echo "=================================================" && \
+    cat /etc/os-release && \
+    echo "=================================================" && \
+    echo "================os-release======================="
 
 # convert centos 8
 RUN dnf install centos-release-stream -yq && \
@@ -19,15 +23,19 @@ RUN dnf install centos-release-stream -yq && \
 FROM centos-convert AS stream-base
 
 # verify centos stream 
-RUN cat /etc/os-release
-
+RUN echo "================os-release=======================" && \
+    echo "=================================================" && \
+    cat /etc/os-release && \
+    echo "=================================================" && \
+    echo "================os-release======================="
+    
 FROM stream-base AS python3-base
 
 RUN yum update -yq && \
     yum install python3 -yq && \
     python3 --version
 
-FROM python-base AS python3-scrappy
+FROM python3-base AS python3-scrappy
 
 RUN pip install scrapy
 

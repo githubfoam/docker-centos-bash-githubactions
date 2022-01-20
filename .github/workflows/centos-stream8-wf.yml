@@ -1,4 +1,4 @@
-name: "centos stream CI workflow"
+name: "centos stream8 CI workflow"
 
 
 on:
@@ -27,15 +27,15 @@ jobs:
 
 
 
-  ubuntu-latest-centos-stream-single-job:
-    name: "centos-stream docker image ubuntu-latest"
+  ubuntu-latest-centos-stream8-single-job:
+    name: "centos-stream8 docker image ubuntu-latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.stream.single"
+      dockerfilename: "centos.stream8.single"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -57,15 +57,15 @@ jobs:
         docker system df -v               
         docker image inspect ${name}:${version}        
 
-  ubuntu-latest-centos-stream-multi-job:
-    name: "centos-stream docker image ubuntu-latest"
+  ubuntu-latest-centos-stream8-multi-job:
+    name: "centos-stream8 docker image ubuntu-latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.stream.multi"
+      dockerfilename: "centos.stream8.multi"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -87,15 +87,15 @@ jobs:
         docker system df -v               
         docker image inspect ${name}:${version}  
 
-  ubuntu-latest-centos-stream-python3-job:
-    name: "centos-stream docker image ubuntu-latest"
+  ubuntu-latest-centos-stream8-python3-job:
+    name: "centos-stream8 docker image ubuntu-latest"
     runs-on: ubuntu-latest
     env:
       distribution: "centos" #https://hub.docker.com/_/centos
       version: "latest"
       name: "centos/stream"
       dockerfiledir: "dockerfiles"  
-      dockerfilename: "Dockerfile.centos.stream.python3"
+      dockerfilename: "centos.stream8.python3"
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
