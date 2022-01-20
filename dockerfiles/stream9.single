@@ -1,0 +1,18 @@
+#https://quay.io/repository/centos/centos?tag=stream8&tab=tags
+FROM quay.io/centos/centos:stream9
+
+LABEL org.opencontainers.image.authors="githubfoam"
+
+# verify centos stream9 
+RUN echo "================os-release=======================" && \
+    echo "=================================================" && \
+    cat /etc/os-release && \
+    echo "=================================================" && \
+    echo "================os-release======================="
+
+RUN dnf clean all && \
+    dnf autoremove -yq && \
+    rm -rf /var/cache/*/*
+
+CMD ["/bin/bash"]
+
