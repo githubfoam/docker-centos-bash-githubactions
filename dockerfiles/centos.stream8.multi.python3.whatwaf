@@ -33,7 +33,7 @@ RUN yum update -yq && \
     #Audit dependencies for the current Python environment
     pip3 install pip-audit && \
     git clone https://github.com/ekultek/whatwaf && cd whatwaf && \
-    sudo pip3 install -r requirements.txt && \
+    pip3 install -r requirements.txt && \
     #Audit dependencies for a given requirements file
     pip-audit -r ./requirements.txt
     #deactivate
