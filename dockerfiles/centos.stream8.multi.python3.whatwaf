@@ -1,0 +1,42 @@
+# Converting from CentOS Linux 8 to CentOS Stream 8
+# https://www.centos.org/centos-stream/
+FROM centos:centos8 AS python3-base
+
+LABEL org.opencontainers.image.authors="githubfoam"
+
+# verify centos 8 
+RUN echo "================os-release=======================" && \
+    echo "=================================================" && \
+    cat /etc/os-release && \
+    echo "=================================================" && \
+    echo "================os-release======================="
+
+  
+
+#install python3 pip3 
+RUN yum update -yq && \
+    yum install python3 python3-pip -yq && \
+    python3 --version && \
+    pip3 -V
+
+FROM python3-base AS python3-venv 
+
+# create python3 virtual environment
+RUN yum update -yq && \
+    yum install which git -yq && \
+    pip3 install virtualenv && \
+    virtualenv -p $(which python3) venvpy3 && \
+    source venvpy3/bin/activate && \
+    python3 --version && \
+    pip3 -V && \
+    #https://github.com/trailofbits/pip-audit
+    #Audit dependencies for the current Python environment
+    pip3 install pip-audit && \
+    git clone https://github.com/ekultek/whatwaf && cd whatwaf && \
+    sudo pip3 install -r requirements.txt && \
+    #Audit dependencies for a given requirements file
+    pip-audit -r ./requirements.txt
+    #deactivate
+
+CMD ["./whatwaf --help"]
+
