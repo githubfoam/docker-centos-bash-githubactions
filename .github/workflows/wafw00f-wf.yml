@@ -11,6 +11,11 @@ jobs:
   wafw00f-ubuntu-latest-job:
     name: "wafw00f ubuntu latest"
     runs-on: ubuntu-latest
+    env:
+      version: "latest"
+      name: "centos/wafw00f"
+      dockerfilename: "centos.stream8.multi.python3.wafw00f"
+      dockerfiledir: "dockerfiles"    
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -22,8 +27,12 @@ jobs:
         cat /etc/issue
         cat /etc/os-release
         sudo apt-get install -y neofetch && neofetch   
-    - name: "wafw00f"
+    - name: "docker build centos whatwaf"
       run: |
-        git clone https://github.com/EnableSecurity/wafw00f.git && cd waf*
-        python setup.py install
-        wafw00f https://webhashes.com     
+        # destroyed afterwards (use --rm )
+        # all subsequent Dockerfile commands generate new images and the cache is not used
+        sudo docker build --no-cache --rm  -t ${name}:${version} . --file ${dockerfiledir}/${dockerfilename}  
+        docker image ls
+        docker image history ${name}:${version}
+        docker system df -v               
+        docker image inspect ${name}:${version}     
