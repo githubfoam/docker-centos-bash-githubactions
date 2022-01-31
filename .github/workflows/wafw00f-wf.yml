@@ -1,0 +1,29 @@
+name: "wafw00f centos CI workflow"
+
+
+on:
+  push:
+    branches: [ test ]
+
+
+jobs:
+
+  wafw00f-ubuntu-latest-job:
+    name: "wafw00f ubuntu latest"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+        hostnamectl status
+        lsb_release -a
+        lsb_release -d
+        cat /etc/lsb-release
+        cat /etc/issue
+        cat /etc/os-release
+        sudo apt-get install -y neofetch && neofetch   
+    - name: "wafw00f"
+      run: |
+        git clone https://github.com/EnableSecurity/wafw00f.git && cd waf*
+        python setup.py install
+        wafw00f https://webhashes.com     

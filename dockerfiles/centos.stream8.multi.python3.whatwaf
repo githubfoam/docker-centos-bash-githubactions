@@ -1,5 +1,3 @@
-# Converting from CentOS Linux 8 to CentOS Stream 8
-# https://www.centos.org/centos-stream/
 FROM centos:centos8 AS python3-base
 
 LABEL org.opencontainers.image.authors="githubfoam"
